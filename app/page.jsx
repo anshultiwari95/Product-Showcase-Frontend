@@ -14,6 +14,7 @@ export default function HomePage() {
   const [skip, setSkip] = useState(0);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [pageLoaded, setPageLoaded] = useState(false);
 
   const page = Math.floor(skip / limit) + 1;
   const totalPages = Math.ceil(total / limit);
@@ -32,7 +33,6 @@ export default function HomePage() {
 
   const getVisiblePages = () => {
     const range = [];
-
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) range.push(i);
     } else {
@@ -44,7 +44,6 @@ export default function HomePage() {
         range.push(1, '...', page - 1, page, page + 1, '...', totalPages);
       }
     }
-
     return range;
   };
 
@@ -58,6 +57,11 @@ export default function HomePage() {
     };
     loadProducts();
   }, [category, sort, skip]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setPageLoaded(true), 100);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -77,8 +81,12 @@ export default function HomePage() {
   };
 
   return (
-    <main className="p-6 space-y-8 max-w-7xl mx-auto">
-      {/* ✨ Filter Bar with motion */}
+    <motion.main
+      className="p-6 space-y-8 max-w-7xl mx-auto"
+      initial={{ opacity: 0 }}
+      animate={pageLoaded ? { opacity: 1 } : {}}
+      transition={{ duration: 0.6, ease: 'easeInOut' }}
+    >
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -87,18 +95,17 @@ export default function HomePage() {
         <CategorySortBar setCategory={setCategory} setSort={setSort} />
       </motion.div>
 
-      {/* ✨ Loader */}
       {loading ? (
         <motion.div
-    key="loading"
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 0.5 }}
-    className="flex justify-center items-center h-60"
-  >
-    <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
-  </motion.div>
+          key="loading"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex justify-center items-center h-60"
+        >
+          <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+        </motion.div>
       ) : (
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
@@ -127,14 +134,12 @@ export default function HomePage() {
         </motion.div>
       )}
 
-      {/* ✨ Pagination */}
       <motion.div
         className="flex justify-center mt-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
         <div className="flex items-center gap-2 flex-wrap">
-          {/* Prev */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -145,7 +150,6 @@ export default function HomePage() {
             Prev
           </motion.button>
 
-          {/* Page Numbers */}
           <AnimatePresence mode="wait">
             {getVisiblePages().map((pg, idx) =>
               pg === '...' ? (
@@ -179,7 +183,6 @@ export default function HomePage() {
             )}
           </AnimatePresence>
 
-          {/* Next */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -191,6 +194,6 @@ export default function HomePage() {
           </motion.button>
         </div>
       </motion.div>
-    </main>
+    </motion.main>
   );
 }
