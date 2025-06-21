@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:8080/api', // adjust if your backend is on a different port
+  baseURL: 'https://product-showcase-backend.onrender.com/api', // adjust if your backend is on a different port
 });
 
 // ✅ Fetch all categories
