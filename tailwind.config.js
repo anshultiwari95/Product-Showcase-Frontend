@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: '#6366f1', // Indigo-500
+        accent: '#6366f1',
         light: '#f9fafb',
         surface: '#ffffff',
         text: '#111827',

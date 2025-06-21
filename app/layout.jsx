@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { AnimatePresence } from 'framer-motion';
-import Navbar from './components/Navbar/Navbar.jsx';
-import './globals.css';
+import { AnimatePresence } from "framer-motion";
+import Navbar from "./components/Navbar/Navbar.jsx";
+import "./globals.css";
 
 export default function RootLayout({ children }) {
   return (

@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { fetchProducts } from './components/lib/api.js';
-import CategorySortBar from './components/CategorySortBar/CategorySortBar';
-import ProductCard from './components/ProductCard/ProductCard';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { fetchProducts } from "./components/lib/api.js";
+import CategorySortBar from "./components/CategorySortBar/CategorySortBar";
+import ProductCard from "./components/ProductCard/ProductCard";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
-  const [category, setCategory] = useState('');
-  const [sort, setSort] = useState('');
+  const [category, setCategory] = useState("");
+  const [sort, setSort] = useState("");
   const [limit] = useState(12);
   const [skip, setSkip] = useState(0);
   const [total, setTotal] = useState(0);
@@ -37,11 +37,19 @@ export default function HomePage() {
       for (let i = 1; i <= totalPages; i++) range.push(i);
     } else {
       if (page <= 4) {
-        range.push(1, 2, 3, 4, 5, '...', totalPages);
+        range.push(1, 2, 3, 4, 5, "...", totalPages);
       } else if (page >= totalPages - 3) {
-        range.push(1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+        range.push(
+          1,
+          "...",
+          totalPages - 4,
+          totalPages - 3,
+          totalPages - 2,
+          totalPages - 1,
+          totalPages
+        );
       } else {
-        range.push(1, '...', page - 1, page, page + 1, '...', totalPages);
+        range.push(1, "...", page - 1, page, page + 1, "...", totalPages);
       }
     }
     return range;
@@ -85,7 +93,7 @@ export default function HomePage() {
       className="p-6 space-y-8 max-w-7xl mx-auto"
       initial={{ opacity: 0 }}
       animate={pageLoaded ? { opacity: 1 } : {}}
-      transition={{ duration: 0.6, ease: 'easeInOut' }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
     >
       <motion.div
         initial={{ opacity: 0, y: -10 }}
@@ -124,7 +132,7 @@ export default function HomePage() {
                 layout
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="bg-white rounded-xl shadow hover:shadow-lg transition-shadow"
               >
                 <ProductCard product={product} />
@@ -152,7 +160,7 @@ export default function HomePage() {
 
           <AnimatePresence mode="wait">
             {getVisiblePages().map((pg, idx) =>
-              pg === '...' ? (
+              pg === "..." ? (
                 <motion.span
                   key={`ellipsis-${idx}`}
                   initial={{ opacity: 0 }}
@@ -173,8 +181,8 @@ export default function HomePage() {
                   onClick={() => handlePageJump(pg)}
                   className={`px-3 py-1 rounded font-medium transition-colors ${
                     pg === page
-                      ? 'bg-indigo-600 text-white shadow-md'
-                      : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+                      ? "bg-indigo-600 text-white shadow-md"
+                      : "bg-gray-200 hover:bg-gray-300 text-gray-700"
                   }`}
                 >
                   {pg}
