@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛍️ Product Showcase App — Frontend
 
-## Getting Started
+This is the frontend of the **Product Showcase** app built using **Next.js**, **Tailwind CSS**, and **Framer Motion**. It interacts with a custom Express.js backend (proxying the DummyJSON API) to display products with rich animations, sorting, pagination, and more.
 
-First, run the development server:
+---
+
+## 🔗 Live Links
+
+- **Frontend Live**: [https://product-showcase-frontend.vercel.app](https://product-showcase-frontend.vercel.app)
+- **Frontend GitHub**: [https://github.com/anshultiwari95/Product-Showcase-Frontend](https://github.com/anshultiwari95/Product-Showcase-Frontend)
+- **Backend Live**: [https://product-showcase-backend.onrender.com](https://product-showcase-backend.onrender.com)
+- **Backend GitHub**: [https://github.com/anshultiwari95/Product-Showcase-Backend](https://github.com/anshultiwari95/Product-Showcase-Backend)
+
+---
+
+## 🚀 How to Run Locally
+
+### 1. Clone the Repository
 
 ```bash
+git clone https://github.com/anshultiwari95/Product-Showcase-Frontend.git
+cd Product-Showcase-Frontend
+
+2. Install Dependencies
+npm install
+
+3.Update Backend URL
+Edit the file components/lib/api.js and replace the base URL with:
+const BASE_URL = "https://product-showcase-backend.onrender.com/api";
+
+4.Start Development Server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+5.Design Choices & Trade-offs
+Chose Framer Motion over GSAP for smoother integration with React and for layoutId-based shared transitions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+For sorting, the backend fetches all products first, sorts them in memory, and then paginates — ensuring consistent results across all items. This approach sacrifices performance slightly for accuracy and better UX.
 
-## Learn More
+Implemented in-memory caching in backend to avoid redundant calls to DummyJSON API.
 
-To learn more about Next.js, take a look at the following resources:
+Used Tailwind CSS for a utility-first approach and faster UI development.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+6.Third-party Libraries Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Library	      Purpose
+Framer        Motion	Animations, shared transitions, micro-interactions
+Axios	      API requests
+TailwindCSS	  Responsive, utility-first styling
 
-## Deploy on Vercel
+7.Bonus Features Implemented
+A. Advanced Animation Showcase
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Shared element transitions using layoutId (product list → detail view)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+spring-based transitions for hover and tap animations
+
+Swipe and keyboard support for image carousel
+
+Scroll-triggered entrance animations using useInView
+
+Tab transitions and button interactions with motion effects
+
+Thumbnail hover zoom and selection border indicator
+
+B.In-Memory Caching
+
+Product list (with sorting & categories) is cached on the backend for 5 minutes
+
+Categories also cached to reduce redundant fetches
+
+C. Consistent Sorting with Pagination
+
+Sorting by price (low to high / high to low) works across all items
+
+Even when paginated or filtered by category
+
+
+
+
+Author
+Anshul Tiwari
+
+📧 anshul.tiwari1223@gmail.com
+
+🔗 https://www.linkedin.com/in/tiwari-anshul12/
+
+🌐 https://anshul-tiwari-portfolio.vercel.app/
