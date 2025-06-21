@@ -1,6 +1,6 @@
-'use client';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+"use client";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function CategorySortBar({ setCategory, setSort }) {
   const [categories, setCategories] = useState([]);
@@ -8,10 +8,12 @@ export default function CategorySortBar({ setCategory, setSort }) {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get('http://localhost:8080/api/products/categories/all');
+        const res = await axios.get(
+          "http://localhost:8080/api/products/categories/all"
+        );
         if (Array.isArray(res.data)) setCategories(res.data);
       } catch (error) {
-        console.error('Error fetching categories:', error.message);
+        console.error("Error fetching categories:", error.message);
       }
     };
 
